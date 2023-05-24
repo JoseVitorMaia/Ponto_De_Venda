@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja PDV</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <ul id="containerLateral">
+        <li onclick="mostrarVenda()">Venda</li>
+        <li onclick="mostrarProdutos()">Produtos</li>
+        <li>Historico de Vendas</li>
+    </ul>
+
+
+    <div id="venda" style="display: none;">
+        <h2>Ponto de Venda</h2>
+
+        <div id="pdv">
+            <label for="produtos"> Selecione o item: </label>
+            <select name="produtos" id="produtos" size="1" onchange="selecionarProduto()">
+                <option value="000">Selecionar...</option>
+                <option value="001">Cod.001  - Teclado - R$120,00</option>
+                <option value="002">Cod.002  - Mouse - R$80,00</option>
+                <option value="003">Cod.003  - Mousepad - R$40,00</option>
+                <option value="004">Cod.004  - Monitor - R$1200,00</option>
+                <option value="005">Cod.005  - Caixa de Som - R$40,00</option>
+                <option value="006">Cod.006  - Headset - R$220,00</option>
+                <option value="007">Cod.007  - Gabinete - R$180,00</option>
+            </select>
+
+            <span id="infoExcluir">Duplo clique para excluir algum item*</span>
+            <button id="addCarrinho" onclick="addCarrinho()">Adicionar ao Carrinho</button>
+        </div>
+
+        <select name="compra" id="compra" size="10"></select>
+
+        
+
+        <footer>
+            <button id="gerarRecibo" onclick="gerarRecibo()">Gerar Recibo</button>
+            <span class="totalCompra">Resumo:</span>
+        </footer>
+    </div>
+
+        <div id="telaFinalizarCompra" style="display: none;">
+            <h2>Finalização da Compra</h2>
+            <textarea name="telaReciboCompra" id="telaReciboCompra" cols="63" rows="10" readonly></textarea>
+            <footer>
+                <button id="finalizarPedido" onclick="finalizarRecibo()">Finalizar Pedido</button>
+                <button id="voltarCarrinho" onclick="voltarCarrinho()">Voltar ao Carrinho</button>
+                <span class="totalCompra" id="totalRecibo">Total:</span>
+            </footer>   
+        </div>
+
+ 
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
