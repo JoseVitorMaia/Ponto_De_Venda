@@ -137,7 +137,7 @@ function finalizarRecibo() {
     let telaReciboCompra = document.querySelector('#telaReciboCompra')
 
     var doc = new jsPDF()
-    doc.text("Obrigado pela preferência !!\n" + "Resumo da sua compra: \n" + telaReciboCompra.innerHTML + `Total a pagar: ` + soma + `\nCompra realizada ${dataAtual}`,20,30)
+    doc.text("Obrigado pela preferência !!\n" + "Resumo da sua compra: \n" + telaReciboCompra.innerHTML + `Total a pagar: R$` + soma + `\nCompra realizada ${dataAtual}`,20,30)
     doc.save('Compra.pdf')
     console.log(telaReciboCompra.innerHTML)
 }
