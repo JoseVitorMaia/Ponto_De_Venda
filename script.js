@@ -36,7 +36,7 @@ const inventario = {
 }
 
 
-
+/*
 function mostrarVenda() {
     let mostrarVenda = document.querySelector('#venda')
     if (mostrarVenda.style.display == "none") {
@@ -56,14 +56,18 @@ function mostrarProdutos() {
     }
 }
 
+*/
+
 function selecionarProduto() {
     let produtos = document.querySelector('#produtos')
     console.log(`Escolheu o item ${inventario[produtos.value].nome} com o valor de ${inventario[produtos.value].valor} `)
 }
 
+
 let soma = 0;
-let id = 1;
+let id = 0;
 let carrinho = [];
+let resumo = [];
 
 let data = new Date()
 let hora = data.getHours()
@@ -78,35 +82,55 @@ function addCarrinho() {
     //Mostrar itens que estão sendo comprando
     let compra = document.querySelector('#compra')
     let produtos = document.querySelector('#produtos')
-    let totalCompra = document.querySelector('.totalCompra')
-    let totalRecibo = document.querySelector('#totalRecibo')
 
     let item = document.createElement('option')
-    item.setAttribute("value",id-1)
+    item.setAttribute("value",id)
     item.setAttribute("ondblclick","deletarItem(this.value)")
-
     item.innerHTML = (`- Item : ${inventario[produtos.value].nome} - Valor: R$${inventario[produtos.value].valor} `)
 
+    
+    let itemValor = document.createElement('option')
+    itemValor.setAttribute("value",inventario[produtos.value].valor)
+    itemValor.setAttribute("ondblclick","deletarItem(this.value)")
+    itemValor.innerHTML = inventario[produtos.value].valor
+
+    resumo.push(itemValor)
+
     carrinho.push(item)
-    compra.appendChild(carrinho[id-1])
+    compra.appendChild(carrinho[id])
 
 
     id++;
-    
 
-    //Mostrar valor total no rodapé
-    let valorItem = Number(inventario[produtos.value].valor);
 
-    soma = soma + valorItem
-    totalCompra.innerText = (`Resumo: R$` + soma)
-    totalRecibo.innerText = (`Total: R$` + soma)
+    //Atualizar valor total no rodapé
+    valorDaCompra()
+
 }
 
 
+function valorDaCompra() {
+    //Mostrar valor total no rodapé
+    let totalCompra = document.querySelector('.totalCompra')
+    let total = 0
+
+    for (i = 0; i < resumo.length; i++){
+        total += Number(resumo[i].value)
+    }
+
+    totalCompra.innerText = (`Resumo: R$` + total)
+    totalRecibo.innerText = (`Total: R$` + total)
+
+    soma = total
+}
+
 function deletarItem(x) {
     carrinho[x].remove()
-    //carrinho.splice(carrinho.indexOf(x),1)
-    //id--;
+    resumo.splice(0,1)
+    
+    //Atualizar valor total no rodapé
+    valorDaCompra()
+    
 }
 
 
@@ -115,29 +139,29 @@ function gerarRecibo() {
     let telaReciboCompra = document.querySelector('#telaReciboCompra')
     telaFinalizarCompra.style.display = "block"
     venda.style.display = 'none'
-    containerLateral.style.display = 'none'
-    console.log(compra)
-    console.log(dataAtual)
+    //containerLateral.style.display = 'none'
+    console.log(resumo)
+    console.log(carrinho)
 
     for (i = 0; i < compra.length; i++) {
         telaReciboCompra.innerHTML += compra[i].innerHTML + "\n"
     }
 
-    //telaReciboCompra.innerText = compra.innerText
     
 }
 
 function voltarCarrinho() {
     telaFinalizarCompra.style.display = "none"
     venda.style.display = 'block'
-    containerLateral.style.display = 'grid'
+    //containerLateral.style.display = 'grid'
+    telaReciboCompra.innerHTML = ''
 }
 
 function finalizarRecibo() {
     let telaReciboCompra = document.querySelector('#telaReciboCompra')
 
     var doc = new jsPDF()
-    doc.text("Obrigado pela preferência !!\n" + "Resumo da sua compra: \n" + telaReciboCompra.innerHTML + `Total a pagar: R$` + soma + `\nCompra realizada ${dataAtual}`,20,30)
+    doc.text("Obrigado(a) pela preferência !!\n" + "--------------------------------------\n" + "Resumo da sua compra: \n" + telaReciboCompra.innerHTML + "--------------------------------------\n" + `Total a pagar: R$` + soma + `\nCompra realizada ${dataAtual}`,20,30)
     doc.save('Compra.pdf')
     console.log(telaReciboCompra.innerHTML)
 }

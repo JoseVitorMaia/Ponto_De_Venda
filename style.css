@@ -12,6 +12,7 @@
     display: flex;
  }
 
+ /*
  #containerLateral {
     background-color: rgba(173, 216, 230, 0.212);
     display: grid;
@@ -46,6 +47,7 @@
     transition: .5s;
  }
 
+*/
 
 #venda {
     width: 500px;
@@ -55,8 +57,10 @@
     border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
     overflow: hidden;
-    position: relative;
-    left: 100px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
     transition: 1s;
 }
 
@@ -114,6 +118,14 @@
     padding: 5px;
 }
 
+
+.btn_item {
+    color: red;
+}
+
+.btn_item span:hover {
+    cursor: pointer;
+}
 
 footer {
     position: absolute;
@@ -223,3 +235,4 @@ footer > span {
     border: 0 none;
     outline: 0;
 }
+

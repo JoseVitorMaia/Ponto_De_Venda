@@ -8,14 +8,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <ul id="containerLateral">
-        <li onclick="mostrarVenda()">Venda</li>
-        <li onclick="mostrarProdutos()">Produtos</li>
-        <li>Historico de Vendas</li>
-    </ul>
-
-
-    <div id="venda" style="display: none;">
+    
+    <div id="venda">
         <h2>Ponto de Venda</h2>
 
         <div id="pdv">
@@ -35,7 +29,7 @@
             <button id="addCarrinho" onclick="addCarrinho()">Adicionar ao Carrinho</button>
         </div>
 
-        <select name="compra" id="compra" size="10"></select>
+        <select name="compra" id="compra" size="10" onclick="valorDaCompra()"></select>
 
         
 
